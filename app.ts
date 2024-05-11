@@ -30,7 +30,10 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // cors
-app.use(cors({ origin: ['https://e-learning-client-black.vercel.app'] ,credentials:true}));
+app.use(cors({ 
+	origin: ['https://e-learning-client-black.vercel.app/'] ,
+	credentials:true,
+}));
 
 
 // routes

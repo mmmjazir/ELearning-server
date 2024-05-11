@@ -31,7 +31,10 @@ const limiter = (0, express_rate_limit_1.default)({
 // Apply the rate limiting middleware to all requests.
 exports.app.use(limiter);
 // cors
-exports.app.use((0, cors_1.default)({ origin: ['https://e-learning-client-black.vercel.app'], credentials: true }));
+exports.app.use((0, cors_1.default)({
+    origin: ['https://e-learning-client-black.vercel.app/'],
+    credentials: true,
+}));
 // routes
 exports.app.use("/api/v1", user_route_1.default, course_route_1.default, order_route_1.default, notification_route_1.default, analytics_route_1.default, layout_route_1.default);
 exports.app.all("*", (req, res, next) => {

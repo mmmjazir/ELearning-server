@@ -10,21 +10,19 @@ exports.accessTokenOptions = {
     expires: new Date(Date.now() + exports.accessTokenExpire * 60 * 1000),
     maxAge: exports.accessTokenExpire * 60 * 1000,
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: "none",
+    secure: true,
 };
 exports.refreshTokenOptions = {
     expires: new Date(Date.now() + exports.refreshTokenExpire * 24 * 60 * 60 * 1000),
     maxAge: exports.refreshTokenExpire * 24 * 60 * 60 * 1000,
     httpOnly: true,
-    sameSite: "lax",
+    sameSite: "none",
+    secure: true,
 };
 const sendToken = async (user, statusCode, res) => {
     const accessToken = user.SignAccessToken();
     const refreshToken = user.SignRefreshToken();
-    // only set secure to true in production
-    if (process.env.NODE_ENV === "production") {
-        exports.accessTokenOptions.secure = true;
-    }
     res.cookie("access_token", accessToken, exports.accessTokenOptions);
     res.cookie("refresh_token", refreshToken, exports.refreshTokenOptions);
     res.status(statusCode).json({
