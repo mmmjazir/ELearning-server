@@ -1,0 +1,28 @@
+"use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = __importDefault(require("express"));
+const user_controller_1 = require("../controllers/user.controller");
+const auth_1 = require("../middleware/auth");
+const userRouter = express_1.default.Router();
+userRouter.post("/registration", user_controller_1.registrationUser);
+userRouter.post("/activate-user", user_controller_1.activateUser);
+userRouter.post("/login", user_controller_1.loginUser);
+userRouter.post("/logout", auth_1.isAuthenticated, user_controller_1.logoutUser);
+// userRouter.post("/refreshtoken", updateAccessToken);
+userRouter.post("/forgot-password", user_controller_1.forgotPassword);
+userRouter.post("/accept-reset-password-otp", user_controller_1.acceptResetPasswordOtp);
+userRouter.put("/reset-password", user_controller_1.resetPassword);
+userRouter.get("/me", auth_1.isAuthenticated, user_controller_1.getUserInfo);
+userRouter.post("/social-auth", user_controller_1.socialAuth);
+userRouter.post("/change-user-email", auth_1.isAuthenticated, user_controller_1.changeUserEmail);
+userRouter.put("/update-user-email", auth_1.isAuthenticated, user_controller_1.updateUserEmail);
+userRouter.put("/update-user-password", auth_1.isAuthenticated, user_controller_1.updateUserPassword);
+userRouter.put("/update-user-name", auth_1.isAuthenticated, user_controller_1.updateUserName);
+userRouter.put("/update-user-avatar", auth_1.isAuthenticated, user_controller_1.updateUserAvatar);
+userRouter.get("/get-users", auth_1.isAuthenticated, (0, auth_1.authorizeRoles)("admin"), user_controller_1.getAllUsers);
+userRouter.put("/update-user", auth_1.isAuthenticated, (0, auth_1.authorizeRoles)("admin"), user_controller_1.updateUserRole);
+userRouter.delete("/delete-user/:id", auth_1.isAuthenticated, (0, auth_1.authorizeRoles)("admin"), user_controller_1.deleteUser);
+exports.default = userRouter;
