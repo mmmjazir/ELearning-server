@@ -26,16 +26,15 @@ const limiter = rateLimit({
 	legacyHeaders: false,
 })
 
-// Apply the rate limiting middleware to all requests.
-app.use(limiter);
 
 // cors
 app.use(cors({ 
-	origin: ['https://e-learning-client-black.vercel.app/'] ,
+	origin: ['https://e-learning-client-black.vercel.app'] ,
 	credentials:true,
 }));
 
-
+// Apply the rate limiting middleware to all requests.
+app.use(limiter);
 // routes
 app.use("/api/v1", userRouter,courseRouter,orderRouter,notificationRouter,analyticsRouter,layoutRouter)
 
