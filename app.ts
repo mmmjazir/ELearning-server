@@ -18,6 +18,10 @@ app.use(express.json({ limit: "50mb" }));
 //cookie parser
 app.use(cookieParser());
 
+
+// cors
+app.use(cors());
+
 // api requests limit
 const limiter = rateLimit({
 	windowMs: 15 * 60 * 1000, 
@@ -26,15 +30,9 @@ const limiter = rateLimit({
 	legacyHeaders: false,
 })
 
-
-// cors
-app.use(cors({ 
-	origin: 'https://e-learning-client-black.vercel.app' ,
-	credentials:true,
-}));
-
 // Apply the rate limiting middleware to all requests.
 app.use(limiter);
+
 // routes
 app.use("/api/v1", userRouter,courseRouter,orderRouter,notificationRouter,analyticsRouter,layoutRouter)
 
