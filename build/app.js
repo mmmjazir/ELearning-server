@@ -22,7 +22,10 @@ exports.app.use(express_1.default.json({ limit: "50mb" }));
 //cookie parser
 exports.app.use((0, cookie_parser_1.default)());
 // cors
-exports.app.use((0, cors_1.default)());
+exports.app.use((0, cors_1.default)({
+    origin: "https://e-learning-client-black.vercel.app",
+    credentials: true,
+}));
 // api requests limit
 const limiter = (0, express_rate_limit_1.default)({
     windowMs: 15 * 60 * 1000,

@@ -20,7 +20,10 @@ app.use(cookieParser());
 
 
 // cors
-app.use(cors());
+app.use(cors({ 
+	origin: "https://e-learning-client-black.vercel.app",
+	credentials: true,
+}));
 
 // api requests limit
 const limiter = rateLimit({
